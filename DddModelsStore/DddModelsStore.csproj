@@ -17,4 +17,14 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DddModelsStore.BusinessLogic\DddModelsStore.BusinessLogic.csproj" />
+    <ProjectReference Include="..\DddModelsStore.DataAccess\DddModelsStore.DataAccess.csproj" />
+    <ProjectReference Include="..\DddModelsStore.Infrastucture\DddModelsStore.Infrastucture.csproj" />
+  </ItemGroup>
+
 </Project>

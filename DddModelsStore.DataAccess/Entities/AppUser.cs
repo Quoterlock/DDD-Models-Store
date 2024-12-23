@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace DddModelsStore.Areas.Identity.Data;
+namespace DddModelsStore.DataAccess.Entities;
 
 // Add profile data for application users by adding properties to the AppUser class
 public class AppUser : IdentityUser
 {
+    
 }
 

@@ -1,13 +1,12 @@
-using DddModelsStore.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+using DddModelsStore.DataAccess.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DddModelsStore.Data;
+namespace DddModelsStore.DataAccess;
 
-public class IdentityDbContext : IdentityDbContext<AppUser>
+public class UserIdentityDbContext : IdentityDbContext<AppUser>
 {
-    public IdentityDbContext(DbContextOptions<IdentityDbContext> options)
+    public UserIdentityDbContext(DbContextOptions<UserIdentityDbContext> options)
         : base(options)
     {
     }

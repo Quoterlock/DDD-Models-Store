@@ -1,13 +1,15 @@
-using DddModelsStore.Areas.Identity.Data;
-using Microsoft.AspNetCore.Identity;
+using DddModelsStore.DataAccess.Entities;
+using DddModelsStore.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using DddModelsStore.Data;
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") 
+                       ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
 
-builder.Services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<UserIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDbContext>();
+builder.Services.AddDefaultIdentity<AppUser>(options => 
+        options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<UserIdentityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,8 +29,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
+app.MapRazorPages();
+app.MapControllerRoute(
+    name: "area_default",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
