@@ -1,6 +1,7 @@
 using DddModelsStore.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DddModelsStore.Controllers
 {
@@ -17,7 +18,8 @@ namespace DddModelsStore.Controllers
         {
             return View();
         }
-
+        
+        [Authorize(Roles="Administrator")]
         public IActionResult Privacy()
         {
             return View();
