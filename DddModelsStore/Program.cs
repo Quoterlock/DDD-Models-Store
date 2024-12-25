@@ -65,17 +65,19 @@ namespace DddModelsStore
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            var connectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") 
+            var usersDbConnectionString = builder.Configuration.GetConnectionString("IdentityDbContextConnection") 
                 ?? throw new InvalidOperationException(
                      "Connection string 'IdentityDbContextConnection' not found.");
-
-            builder.Services.AddDbContext<UserIdentityDbContext>(options => options.UseSqlServer(connectionString));
-
+            builder.Services.AddDbContext<UserIdentityDbContext>(options => options.UseSqlServer(usersDbConnectionString));
             builder.Services.AddDefaultIdentity<AppUser>(options =>
                     options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UserIdentityDbContext>();
 
+            var mainDbConnectionString = builder.Configuration.GetConnectionString("MainDbContextConnection"); 
+            builder.Services.AddDbContext<MainDbContext>(options => 
+                options.UseSqlServer(mainDbConnectionString)); 
+            
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
