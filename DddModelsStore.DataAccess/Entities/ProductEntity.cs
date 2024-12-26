@@ -12,9 +12,8 @@ public class ProductEntity
     [Column("title")]
     public string Title { get; set; }
     [Column("description")]
-    public string Description { get; set; }
-    [Column("model_id")]
-    public string ModelId { get; set; }
+    public string Description { get; set; } = String.Empty;
+    public ModelMetadataEntity Model { get; set; }
     [Column("owner_id")]
     public string OwnerId { get; set; }
     public CategoryEntity Category { get; set; }

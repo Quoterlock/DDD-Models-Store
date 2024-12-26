@@ -7,25 +7,36 @@ public class MainDbContext : DbContext
 {
     public DbSet<ProductEntity> Products { get; set; }
     public DbSet<CategoryEntity> Categories { get; set; }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
-    }
+    public DbSet<ModelMetadataEntity> Models { get; set; }
 
+    public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
+    {
+    }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ProductEntity>(e =>
         {
             e.HasKey(p => p.Id);
             e.Property(p => p.Title).IsRequired();
+            // Owner is stored in separate db context, so it is not an FK 
             e.Property(p => p.OwnerId).IsRequired();
             e.Property(p=>p.Created).IsRequired();
             e.Property(p => p.Modified).IsRequired();
-            // relations
+            // relation
+            e.HasOne(p => p.Model);
             e.HasOne(p => p.Category)
                 .WithMany(p=>p.Products)
                 .HasForeignKey(p => p.CategoryId);
         });
+        
+        modelBuilder.Entity<ModelMetadataEntity>(e =>
+        {
+            e.HasKey(p => p.Id);
+            e.Property(p=>p.SizeBytes).IsRequired();
+            e.Property(p=>p.Format).IsRequired();
+        });
+        
         modelBuilder.Entity<CategoryEntity>(e =>
         {
             e.HasKey(c => c.Id);
