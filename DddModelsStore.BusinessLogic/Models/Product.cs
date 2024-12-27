@@ -20,4 +20,5 @@ public class NewProduct
     public AppUser Owner { get; set; }
     public Stream ModelData { get; set; }
     public string Extension { get; set; } = string.Empty;
+    public string CategoryId { get; set; } = string.Empty;
 }

@@ -2,6 +2,7 @@ namespace DddModelsStore.BusinessLogic.Interfaces;
 
 public interface IMapper<TModel, TEntity>
 {
-    TModel Convet(TEntity entity);
-    TEntity? Convet(TModel model);
+    Task<TModel> MapAsync(TEntity entity);
+    Task<TEntity> MapAsync(TModel model);
+    
 }

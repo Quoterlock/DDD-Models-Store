@@ -1,4 +1,6 @@
 using DddModelsStore.BusinessLogic.Interfaces;
+using DddModelsStore.BusinessLogic.Models;
+using DddModelsStore.BusinessLogic.Services;
 using DddModelsStore.DataAccess.Entities;
 using DddModelsStore.DataAccess;
 using DddModelsStore.DataAccess.Interfaces;
@@ -80,10 +82,18 @@ namespace DddModelsStore
             var mainDbConnectionString = builder.Configuration.GetConnectionString("MainDbContextConnection"); 
             builder.Services.AddDbContext<MainDbContext>(options => 
                 options.UseSqlServer(mainDbConnectionString));
+
+            builder.Services.AddScoped<IMapper<Product, ProductEntity>, ProductMapper>(); 
             
             builder.Services.AddScoped<IRepository<ModelMetadataEntity>, ModelsRepo>();
             builder.Services.AddScoped<IRepository<ProductEntity>, ProductsRepo>();
             builder.Services.AddScoped<IRepository<CategoryEntity>, CategoriesRepo>();
+            builder.Services.AddScoped<IRepository<ModelMetadataEntity>, ModelsRepo>();
+            builder.Services.AddScoped<IModelsStorage, >(); 
+            
+            builder.Services.AddScoped<IProductsService, ProductsService>();
+            builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+            builder.Services.AddScoped<IModelsService, ModelsService>();
             
             
             // Add services to the container.
