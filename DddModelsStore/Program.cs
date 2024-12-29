@@ -89,7 +89,7 @@ namespace DddModelsStore
             builder.Services.AddScoped<IRepository<ProductEntity>, ProductsRepo>();
             builder.Services.AddScoped<IRepository<CategoryEntity>, CategoriesRepo>();
             builder.Services.AddScoped<IRepository<ModelMetadataEntity>, ModelsRepo>();
-            builder.Services.AddScoped<IModelsStorage, >(); 
+            builder.Services.AddScoped<IModelsStorage, ModelsLocalFileStorage>(); 
             
             builder.Services.AddScoped<IProductsService, ProductsService>();
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();

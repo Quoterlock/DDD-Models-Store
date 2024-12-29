@@ -24,7 +24,7 @@ public class ProductsService : IProductsService
     public async Task AddProductAsync(NewProduct product)
     {
         // add model metadata
-        var modelId = await _models.StoreModel(product.ModelData);
+        var modelId = await _models.StoreModel(product.ModelData, product.Extension);
         // add product
         _products.AddAsync(new ProductEntity()
         {
